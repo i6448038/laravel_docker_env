@@ -37,18 +37,12 @@ ENV PATH ~/.composer/vendor/bin:$PATH
 #从私有仓库git clone代码
 RUN apt-get update  
 RUN apt-get install -y git 
-#WORKDIR /Code
-#RUN git clone http://liugang:liugang521@gitlab.chuanty.com/backend/taurus.git
 
 
 #更新compsoer
 WORKDIR /Code/taurus
-#RUN chown www-data /Code/taurus/storage
-#RUN chmod -R 777 /Code/taurus/storage
 RUN usermod -u 1000 www-data
-#ADD .env /Code/taurus/.env
 RUN composer --global config process-timeout 2000 \
-    #&& composer config repo.packagist composer http://packagist.phpcomposer.com \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
     && composer --global config secure-http false 
 VOLUME ["/Code"]
