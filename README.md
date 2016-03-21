@@ -3,8 +3,8 @@ laravel 环境Docker化
 主要的功能是替换homestead,所有功能都Docker化！
 
 #Install
-1、把source clone或者 down下来
-2、在~/Code目录中git clone放置所需的laravel代码
+1、把自己工程的代码clone下来
+2、在当前目录下clone下本工程的代码
 把php目录中Dockerfile中的taurus全部换成自己工程的名字
 把nginx目录中default.conf中的所有taurus全部换成自己工程的名字
 3、把docker-compose.yml文件中的“db”下的数据库信息填为自己所需的数据库信息
