@@ -3,7 +3,7 @@ webphp:
   ports:
     - "9000:9000"
   volumes:
-    - ~/Code:/Code
+    - .:/Code/taurus
   links:
     - cache:cache
     - db:db
