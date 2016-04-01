@@ -3,37 +3,42 @@ webphp:
   ports:
     - "9000:9000"
   volumes:
-    - .:/Code/taurus
+    - .:/Code/Project
   links:
     - cache:cache
     - db:db
     - es:localhost
+  container_name: fpm
 
 cache:
    image: redis
    ports:
     - "6379:6379"
+   container_name: redis 
 db:
   image: mysql
   ports:
     - "3306:3306"
   environment:
-    MYSQL_ROOT_PASSWORD: chuantaiyidev
-    MYSQL_USER: cty
-    MYSQL_PASSWORD: chuantaiyidev
-    MYSQL_DATABASE: taurus
+    MYSQL_ROOT_PASSWORD: homestead
+    MYSQL_USER: homestead
+    MYSQL_PASSWORD: secret
+    MYSQL_DATABASE: homestead
+  container_name: db  
 es:
   build: ES/.
   ports:
     - "9200:9200"
     - "9300:9300"
+  container_name: es  
 server:
     build: nginx/.
     ports:
       - "80:80"
       - "443:443"
+    container_name: server  
     links:
-    - webphp:taurus  
+      - webphp:fpm  
     volumes_from:
       - webphp:rw
 
