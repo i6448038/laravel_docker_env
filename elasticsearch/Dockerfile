@@ -1,23 +1,16 @@
-FROM elasticsearch
-
-#
-
-#下载elasticsearch-rft 
-RUN apt-get update 
-RUN apt-get install -y git
-WORKDIR /ES
-RUN git clone git://github.com/medcl/elasticsearch-rtf.git -b master --depth 1
-WORKDIR /ES/elasticsearch-rtf
-
-#将elasticsearch-rft 的plugins目录，复制到官方的elasticsearch中
-RUN cp -rf plugins/ /usr/share/elasticsearch/plugins/
+FROM elasticsearch:2.4
 
 #安装smartcn分词
 WORKDIR /usr/share/elasticsearch
 RUN bin/plugin install analysis-smartcn
 #RUN usermod -u 1000 elasticsearch
+
+#安装ik分词
+ADD ik plugins/ik
+
+#安装拼音分词
+ADD pinyin plugins/pinyin
+
+
 EXPOSE 9200 9300
 CMD ["bin/elasticsearch", "-Des.insecure.allow.root=true"]
-
-
- 
